@@ -7,6 +7,11 @@
     "build": "rm -rf dist && tsc && swc src -d dist"
   },
   "author": "iCyuba",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iCyuba/react-modal-portal-hook.git"
+  },
+  "homepage": "https://github.com/iCyuba/react-modal-portal-hook#readme",
   "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",

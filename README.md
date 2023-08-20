@@ -1,6 +1,9 @@
 # React Modal Portal Hook
 
-A simple hook for creating portals for modals in React
+A simple hook for creating portals for modals in React.
+
+This uses the [inert property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert) to disable all elements outside of the modal.
+Make sure this is supported in your target browsers.
 
 _Note: There won't be a build for Common Js._
 
@@ -46,4 +49,4 @@ function Modal({ open, close }) {
 }
 ```
 
-This example can be found here written in TypeScript: [examples/BasicModal.tsx](examples/BasicModal.tsx)
+This example can be found here written in TypeScript: [examples/BasicModal.tsx](https://github.com/iCyuba/react-modal-portal-hook/blob/main/examples/BasicModal.tsx)
