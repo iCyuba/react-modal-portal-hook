@@ -20,7 +20,7 @@ import usePortal from "./usePortal";
  * @param focus The element to focus when the modal is opened.
  * @returns The portal element. (will be null on the server and first render)
  */
-function useModal(open: boolean, focus?: HTMLElement) {
+function useModal(open: boolean, focus?: HTMLElement | null) {
   const element = usePortal();
 
   // Remember which elements were changed

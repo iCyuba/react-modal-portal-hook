@@ -1,16 +1,16 @@
-# React Modal Portal Hook
+import React, { useRef } from "react";
+import { createPortal } from "react-dom";
+import useModal from "../src/useModal";
 
-A simple hook for creating portals for modals in React
+interface ModalProps {
+  open: boolean;
+  close: () => void;
+}
 
-## Usage
-
-Basic modal component with this hook:
-
-```jsx
-function Modal({ open, close }) {
+function Modal({ open, close }: ModalProps) {
   // Create a ref to the modal element
   // This is for accessibility purposes (it will be automatically focused when open)
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   // Get the portal element from the hook
   // This handles focus for us automatically (that's the whole point of this library)
@@ -33,6 +33,5 @@ function Modal({ open, close }) {
     portal
   );
 }
-```
 
-This example can be found here written in TypeScript: [examples/BasicModal.tsx](examples/BasicModal.tsx)
+export default Modal;
