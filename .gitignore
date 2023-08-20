@@ -1,0 +1,5 @@
+# Unwanted files
+.DS_Store
+
+# Downloaded files
+node_modules/
