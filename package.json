@@ -1,5 +1,5 @@
 {
-  "name": "react-modal-portal-hook",
+  "name": "@icyuba/react-modal-portal-hook",
   "version": "0.0.0",
   "description": "A simple hook for creating portals for modals in React",
   "type": "module",

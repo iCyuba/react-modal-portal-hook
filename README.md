@@ -7,6 +7,13 @@ Make sure this is supported in your target browsers.
 
 _Note: There won't be a build for Common Js._
 
+For now, published versions will be on my private registry. You can install it with:
+
+```bash
+npm config set @icyuba:registry https://npm.icy.cx --location project
+npm install @icyuba/react-modal-portal-hook
+```
+
 ## Bundle size
 
 This library is very small and only depends on React.
