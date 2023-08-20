@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json.schemastore.org/swcrc",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript"
+    },
+    "minify": {
+      "compress": true
+    }
+  },
+  "sourceMaps": true
+}

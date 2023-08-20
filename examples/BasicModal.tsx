@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { createPortal } from "react-dom";
-import useModal from "../src/useModal";
+import useModal from "../src/index";
 
 interface ModalProps {
   open: boolean;

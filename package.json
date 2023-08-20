@@ -4,17 +4,33 @@
   "description": "A simple hook for creating portals for modals in React",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc && swc src -d dist"
   },
   "author": "iCyuba",
   "license": "MIT",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./usePortal": {
+      "import": "./dist/usePortal.js",
+      "types": "./dist/types/usePortal.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.78",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "@types/react": "^18.2.20",

@@ -2,6 +2,17 @@
 
 A simple hook for creating portals for modals in React
 
+_Note: There won't be a build for Common Js._
+
+## Bundle size
+
+This library is very small and only depends on React.
+
+Here's the size of each file (only compressed, unmangled, ungizipped):
+
+- `index.js`: ~1kb (also re-exports usePortal and depends on it)
+- `usePortal.js`: ~0.5kb
+
 ## Usage
 
 Basic modal component with this hook:
