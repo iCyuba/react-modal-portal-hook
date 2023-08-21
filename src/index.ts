@@ -85,7 +85,7 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
 
   useEffect(() => {
     // After opening (and the old focus is saved), focus the new element
-    if (open && oldFocus.current !== undefined && focus) {
+    if (element && open && oldFocus.current !== undefined && focus) {
       // Save the old tab index
       const oldTabIndex = focus.tabIndex;
 
@@ -96,7 +96,7 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
       // Restore the old tab index
       focus.tabIndex = oldTabIndex;
     }
-  }, [open, focus]);
+  }, [element, open, focus]);
 
   // Return the element that will be mounted to the DOM
   return element;

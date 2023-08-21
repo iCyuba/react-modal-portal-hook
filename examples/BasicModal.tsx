@@ -19,9 +19,11 @@ function Modal({ open, close }: ModalProps) {
 
   // To avoid issues with SSR this only creates the element on the client.
   // Because of that we need to check if the element exists before rendering.
-  // We can also check for the open state to avoid rendering the element at all.
-  // (Note: this intentionally doesn't remove the portal element from the DOM)
-  if (!portal) return null;
+  // We can also check for the open state to avoid rendering the element at all when it is closed.
+
+  // Note: This intentionally doesn't remove the portal element from the DOM
+  // You can also combine this with a transition to make it look nice (since we can mount the element even while passing false to the hook)
+  if (!portal || !open) return null;
 
   return createPortal(
     // Our modal content
