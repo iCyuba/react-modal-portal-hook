@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
 import usePortal from "./usePortal";
 
@@ -23,7 +23,10 @@ export { default as usePortal } from "./usePortal";
  * @param focus The element to focus when the modal is opened.
  * @returns The portal element. (will be null on the server and first render)
  */
-function useModal(open: boolean, focus?: HTMLElement | null) {
+function useModal(
+  open: boolean,
+  focus?: HTMLElement | RefObject<HTMLElement> | null
+) {
   const element = usePortal();
 
   // Remember which elements were changed
@@ -36,11 +39,13 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
   // This prevents the user from tabbing to elements outside of the modal
   // After the modal is closed, they are restored to their original state
   useEffect(() => {
-    if (!element) return; // There can be no modal without a portal...
+    // There can be no modal without a portal...
+    if (!element) return console.log("[useModal] No portal element, skipping");
 
     if (open) {
       // Save the old focused element
       oldFocus.current = document.querySelector<HTMLElement>(":focus");
+      console.log("[useModal] Saving old focus", oldFocus.current);
 
       // Set all elements in the body to inert (skip already inert elements [to avoid errors with multiple modals])
       const elements = document.body.querySelectorAll<HTMLElement>(
@@ -58,14 +63,22 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
         inertElements.current.push(el);
       });
 
+      console.log("[useModal] Elements set to inert", inertElements.current);
+
       // Return a cleanup function that restores the elements
       return () => {
+        console.log(
+          "[useModal] Cleanup - Restoring elements",
+          inertElements.current
+        );
+
         // Restore the elements to their original state (remove the inert property)
         inertElements.current.forEach((el) => {
           el.inert = false;
         });
 
         // Restore the old focus and clear the ref
+        console.log("[useModal] Restoring old focus", oldFocus.current);
         if (oldFocus.current) oldFocus.current.focus();
         oldFocus.current = undefined;
 
@@ -73,28 +86,36 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
         inertElements.current = [];
       };
     } else {
+      console.log("[useModal] Setting self to inert");
+
       // When closed, add the inert property to the portal element
       element.inert = true;
 
       // Return a cleanup function that removes the inert property
       return () => {
+        console.log("[useModal] Cleanup - Removing inert property from self");
+
         element.inert = false;
       };
     }
   }, [open, element]);
 
   useEffect(() => {
+    const el = focus instanceof HTMLElement ? focus : focus?.current;
+
     // After opening (and the old focus is saved), focus the new element
-    if (element && open && oldFocus.current !== undefined && focus) {
+    if (element && open && oldFocus.current !== undefined && el) {
+      console.log("[useModal] Force focusing element", el);
+
       // Save the old tab index
-      const oldTabIndex = focus.tabIndex;
+      const oldTabIndex = el.tabIndex;
 
       // Make sure the element is focusable (by setting the tab index to 0)
-      focus.tabIndex = 0;
-      focus.focus();
+      el.tabIndex = 0;
+      el.focus();
 
       // Restore the old tab index
-      focus.tabIndex = oldTabIndex;
+      el.tabIndex = oldTabIndex;
     }
   }, [element, open, focus]);
 

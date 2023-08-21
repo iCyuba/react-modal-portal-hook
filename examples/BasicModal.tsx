@@ -15,7 +15,7 @@ function Modal({ open, close }: ModalProps) {
   // Get the portal element from the hook
   // This handles focus for us automatically (that's the whole point of this library)
   // We do have to pass the ref to the modal element though (without this, tools like VoiceOver won't jump to the modal and will get stuck)
-  const portal = useModal(open, modalRef.current);
+  const portal = useModal(open, modalRef);
 
   // To avoid issues with SSR this only creates the element on the client.
   // Because of that we need to check if the element exists before rendering.

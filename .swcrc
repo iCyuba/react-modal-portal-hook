@@ -8,7 +8,10 @@
       "compress": {
         // Don't change the names of functions exported as default
         "inline": false,
-        "reduce_vars": false
+        "reduce_vars": false,
+
+        // Remove console logs
+        "drop_console": true
       }
     }
   },

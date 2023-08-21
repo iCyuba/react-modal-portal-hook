@@ -21,11 +21,17 @@ function usePortal() {
     // Add the element to the DOM
     document.body.appendChild(element);
 
+    console.log("[usePortal] Element added to the dom", element);
+
     // Store the element in a state
     setElement(element);
 
     // On unmount, remove the element from the DOM
-    return () => void document.body.removeChild(element);
+    return () => {
+      console.log("[usePortal] Removing element from DOM");
+
+      document.body.removeChild(element);
+    };
   }, []);
 
   return element;
