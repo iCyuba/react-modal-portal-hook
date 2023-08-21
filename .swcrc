@@ -5,7 +5,11 @@
       "syntax": "typescript"
     },
     "minify": {
-      "compress": true
+      "compress": {
+        // Don't change the names of functions exported as default
+        "inline": false,
+        "reduce_vars": false
+      }
     }
   },
   "sourceMaps": true

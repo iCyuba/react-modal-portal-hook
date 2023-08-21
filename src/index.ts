@@ -57,18 +57,21 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
         // This is used to restore the elements to their original state later
         inertElements.current.push(el);
       });
-    } else {
-      // Restore the elements to their original state (remove the inert property)
-      inertElements.current.forEach((el) => {
-        el.inert = false;
-      });
 
-      // Restore the old focus and clear the ref
-      if (oldFocus.current) oldFocus.current.focus();
-      oldFocus.current = undefined;
+      // Return a cleanup function that restores the elements
+      return () => {
+        // Restore the elements to their original state (remove the inert property)
+        inertElements.current.forEach((el) => {
+          el.inert = false;
+        });
 
-      // Clear the list of changed elements
-      inertElements.current = [];
+        // Restore the old focus and clear the ref
+        if (oldFocus.current) oldFocus.current.focus();
+        oldFocus.current = undefined;
+
+        // Clear the list of changed elements
+        inertElements.current = [];
+      };
     }
   }, [open, element]);
 
