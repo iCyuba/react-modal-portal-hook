@@ -72,6 +72,14 @@ function useModal(open: boolean, focus?: HTMLElement | null) {
         // Clear the list of changed elements
         inertElements.current = [];
       };
+    } else {
+      // When closed, add the inert property to the portal element
+      element.inert = true;
+
+      // Return a cleanup function that removes the inert property
+      return () => {
+        element.inert = false;
+      };
     }
   }, [open, element]);
 
