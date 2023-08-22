@@ -5,6 +5,21 @@ import usePortal from "./usePortal";
 /** Re-export the usePortal hook (for convenience) */
 export { default as usePortal } from "./usePortal";
 
+/** Small helper to force focus on a given element */
+function forceFocus(el: HTMLElement) {
+  console.log("[useModal] Force focusing element", el);
+
+  // Save the old tab index
+  const oldTabIndex = el.tabIndex;
+
+  // Make sure the element is focusable (by setting the tab index to 0)
+  el.tabIndex = 0;
+  el.focus();
+
+  // Restore the old tab index
+  el.tabIndex = oldTabIndex;
+}
+
 /**
  * Hook for a modal portal element.
  *
@@ -47,21 +62,24 @@ function useModal(
       oldFocus.current = document.querySelector<HTMLElement>(":focus");
       console.log("[useModal] Saving old focus", oldFocus.current);
 
+      // Focus the first child of the modal (if there is one)
+      if (element.firstElementChild instanceof HTMLElement)
+        forceFocus(element.firstElementChild);
+
       // Set all elements in the body to inert (skip already inert elements [to avoid errors with multiple modals])
-      const elements = document.body.querySelectorAll<HTMLElement>(
-        "body > *:not([inert])"
-      );
+      document.body
+        .querySelectorAll<HTMLElement>("body > :not([inert])")
 
-      elements.forEach((el) => {
-        // Skip the modal portal (obviously)
-        if (el === element) return;
+        .forEach((el) => {
+          // Skip the modal portal (obviously)
+          if (el === element) return;
 
-        el.inert = true;
+          el.inert = true;
 
-        // Add the element to the list of changed elements
-        // This is used to restore the elements to their original state later
-        inertElements.current.push(el);
-      });
+          // Add the element to the list of changed elements
+          // This is used to restore the elements to their original state later
+          inertElements.current.push(el);
+        });
 
       console.log("[useModal] Elements set to inert", inertElements.current);
 
@@ -98,26 +116,15 @@ function useModal(
         element.inert = false;
       };
     }
-  }, [open, element]);
+  }, [open, element, forceFocus]);
 
   useEffect(() => {
-    const el = focus instanceof HTMLElement ? focus : focus?.current;
-
     // After opening (and the old focus is saved), focus the new element
-    if (element && open && oldFocus.current !== undefined && el) {
-      console.log("[useModal] Force focusing element", el);
+    const el = focus instanceof HTMLElement ? focus : focus && focus.current;
 
-      // Save the old tab index
-      const oldTabIndex = el.tabIndex;
-
-      // Make sure the element is focusable (by setting the tab index to 0)
-      el.tabIndex = 0;
-      el.focus();
-
-      // Restore the old tab index
-      el.tabIndex = oldTabIndex;
-    }
-  }, [element, open, focus]);
+    // Don't focus if the modal is closed, the element is not defined or the old focus is not saved
+    if (element && open && oldFocus.current !== undefined && el) forceFocus(el);
+  }, [element, open, focus, forceFocus]);
 
   // Return the element that will be mounted to the DOM
   return element;

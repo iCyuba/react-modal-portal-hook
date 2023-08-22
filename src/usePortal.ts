@@ -8,10 +8,7 @@ import { useEffect, useState } from "react";
  * @returns The element to use as a portal.
  */
 function usePortal() {
-  // I'm doing this to avoid the default array destructuring polyfill
-  const elementState = useState<HTMLDivElement | null>(null);
-  const element = elementState[0];
-  const setElement = elementState[1];
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Create the component that will be mounted to the DOM
