@@ -1,0 +1,50 @@
+html {
+  font-family: sans-serif;
+}
+
+button {
+  appearance: none;
+
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+
+  background: #fafafa;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  user-select: none;
+}
+
+button:hover {
+  background: #eee;
+
+  border-color: #999;
+}
+
+[inert] {
+  opacity: 0.5;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  top: 50%;
+  left: 50%;
+
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  transform: translate(-50%, -50%);
+
+  width: 25rem;
+  height: 15rem;
+
+  margin: 1rem;
+
+  background: #fff;
+  border: 1px solid #ccc;
+}

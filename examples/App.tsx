@@ -6,7 +6,13 @@ function App() {
 
   return (
     <>
+      <h3>All these buttons trigger the same modal</h3>
+      <p>Notice how the focus returns to the one you open the modal with</p>
+
       <button onClick={() => setOpen(true)}>Open modal</button>
+      <button onClick={() => setOpen(true)}>Open modal</button>
+      <button onClick={() => setOpen(true)}>Open modal</button>
+
       <Modal open={open} close={() => setOpen(false)} />
     </>
   );
